@@ -8,12 +8,14 @@ import HistoryService from '../../../services/HistoryService/HistoryService'
 
 const PersonComponent = ({itemsToShow}) =>{
     const [items,setItems] = useState([])
-    const [query,setQuery] = useState(null)
+    const [numFound,setNumFound] = useState(0)
+    const [query,setQuery] = useState('')
     const [page,setPage]=useState(1)
 
     useEffect(()=>{
-        PersonService.getDictionary().then((res)=>{
-            setItems(res.data)
+        PersonService.getDictionary(query,page).then((res)=>{
+            setNumFound(res.numFound.data)
+            setItems(res.content.data)
         })
     },[])
 
@@ -22,14 +24,16 @@ const PersonComponent = ({itemsToShow}) =>{
 
             const executionTime = new Date()
             let endpointExecutionTime=null
-            PersonService.getDictionary(query).then((res)=>{
-                setItems(res.data)
+            PersonService.getDictionary(query,page).then((res)=>{
+                setNumFound(res.numFound.data)
+                setItems(res.content.data)
                 endpointExecutionTime = new Date()
             })
             const requestQuery = `${'http://localhost:8080/api/v1/phone-numbers/autocomplete'}?query=${query}`
             const response = items?.map((item)=>{
                 return {n:item.name, pN: item.phoneNumber}
             })
+
             const params = {
                 requestQuery:requestQuery,
                 response:JSON.stringify(response),
@@ -47,12 +51,17 @@ const PersonComponent = ({itemsToShow}) =>{
         }
     },[query])
 
+    useEffect(()=>{
+        PersonService.getDictionary(query,page).then((res)=>{
+            setNumFound(res.numFound.data)
+            setItems(res.content.data)
+        })
+    },[page])
+
     const renderItems = () =>{
-        const showFrom = (page-1)*10
-        const showTo = items.length < page*10 ? items.length : page*10
         return items?.length>0 ? (
             <Row className='py-4'>
-                <PersonList items={items?.slice(showFrom,showTo)} page={page}></PersonList>
+                <PersonList items={items} page={page}></PersonList>
             </Row>
         ):
        (<Row>
@@ -80,13 +89,14 @@ const PersonComponent = ({itemsToShow}) =>{
         },2000)
     }
 
+
     const renderPaging = () => {
-        return items?.length > 0 && (
+        return items?.length > 0 && numFound >0 && (
             <Row>
                 <Col>
                     <Paging
                     page={page}
-                    pages={Math.ceil(items?.length / 10)}
+                    pages={Math.ceil(numFound / 10)}
                     changePage={(e)=>{setPage(e)}}
                     ></Paging>
                 </Col>

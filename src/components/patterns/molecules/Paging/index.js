@@ -116,7 +116,7 @@ const Paging = ({ pages, page, changePage, visiblePages, offset }) => {
     )
   }
 
-  return pages > 1 && (
+  return pages >= 1 && (
     <div className='d-flex justify-content-center cursor-default'>
       {renderPagination(pages, page, visiblePages, changePage, offset)}
     </div>
