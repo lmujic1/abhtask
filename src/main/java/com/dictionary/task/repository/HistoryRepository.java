@@ -1,18 +1,15 @@
 package com.dictionary.task.repository;
 
 import com.dictionary.task.model.History;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
+//import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-public interface HistoryRepository extends PagingAndSortingRepository<History,Integer>, JpaRepository<History,Integer> {
+public interface HistoryRepository extends  JpaRepository<History,Integer> {
 
     @Query(value = "SELECT history.* FROM history ORDER BY ?3 LIMIT ?1, ?2", nativeQuery = true)
     public List<History> findAll(@Param("page") int page,@Param("perPage") int perPage, @Param("sort") String sort);

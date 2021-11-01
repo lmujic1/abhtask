@@ -12,7 +12,6 @@ import java.util.List;
 public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonRepository personRepository;
-    private HistoryRepository historyRepository;
 
     // Get methods
     @Override
@@ -21,8 +20,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> findBySearchField(String query) {
-        return personRepository.findBySearchField(query);
+    public List<Person> findBySearchField(String query,int page,int perPage) {
+        int spage=1;
+        return personRepository.findBySearchField(query,spage-1,perPage);
     }
 
     @Override

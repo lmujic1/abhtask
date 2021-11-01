@@ -1,18 +1,12 @@
 package com.dictionary.task.controller;
 
 import com.dictionary.task.model.History;
-import com.dictionary.task.model.Person;
 import com.dictionary.task.service.HistoryServiceImpl;
-import com.dictionary.task.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -70,7 +64,7 @@ public class HistoryController {
     }
 
     @PutMapping("/history/update/{id}")
-    public ResponseEntity updateHistoryItem(@PathVariable(value = "id") Integer id, History history) {
+    public ResponseEntity<History> updateHistoryItem(@PathVariable(value = "id") Integer id, History history) {
         History historyToUpdate = historyService.findById(id);
         historyToUpdate.setRequestQuery(history.getRequestQuery());
         historyToUpdate.setResponse(history.getResponse());
