@@ -12,7 +12,6 @@ import java.util.List;
 public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonRepository personRepository;
-    private HistoryRepository historyRepository;
 
     // Get methods
     @Override
