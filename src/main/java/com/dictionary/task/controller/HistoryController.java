@@ -32,7 +32,6 @@ public class HistoryController {
         if(perPage != null && perPage.length()>0) {
             perPag = perPage;
         }
-        System.out.print("pag"+pag+"per"+perPag);
         String sor="id asc";
         if(sort != null && sort.length()>0) {
             sor=sort+" asc";
@@ -58,7 +57,6 @@ public class HistoryController {
 
     @PostMapping("/history/add")
     public History addHistoryItem (@RequestBody History history) {
-        System.out.print("histtoey time " + history.getExecutionTime() + " fvsfv" + history.getEndpointExecutionTime());
         historyService.saveHistoryItem(history);
         return historyService.saveHistoryItem(history);
     }
