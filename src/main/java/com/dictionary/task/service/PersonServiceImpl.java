@@ -1,7 +1,6 @@
 package com.dictionary.task.service;
 
 import com.dictionary.task.model.Person;
-import com.dictionary.task.repository.HistoryRepository;
 import com.dictionary.task.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
