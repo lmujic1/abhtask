@@ -25,18 +25,18 @@ public class HistoryServiceImpl implements HistoryService{
 
     @Override
     public List<History> findByDate(String date, int page, int perPage, String sort) {
-        return historyRepository.findByExecutionTime(date,page-1,perPage,sort);
+        return historyRepository.findByExecutionTime(date,(page-1)*perPage,perPage,sort);
     }
 
 
     @Override
     public List<History> findByQuery(String query, int page, int perPage, String sort) {
-        return historyRepository.findByRequestQuery(query,page-1,perPage,sort);
+        return historyRepository.findByRequestQuery(query,(page-1)*perPage,perPage,sort);
     }
 
     @Override
     public List<History> findByResponse(String name, String phoneNumber, int page, int perPage, String sort) {
-        return historyRepository.findByResponse(name,phoneNumber,page-1, perPage,sort);
+        return historyRepository.findByResponse(name,phoneNumber,(page-1)*perPage, perPage,sort);
     }
 
 
