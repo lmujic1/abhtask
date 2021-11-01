@@ -1,7 +1,6 @@
 package com.dictionary.task.service;
 
 import com.dictionary.task.model.History;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.dictionary.task.service;
 
 import com.dictionary.task.model.Person;
-import com.dictionary.task.repository.HistoryRepository;
 import com.dictionary.task.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +14,26 @@ public class PersonServiceImpl implements PersonService {
 
     // Get methods
     @Override
-    public List<Person> findAll() {
-        return personRepository.findAll();
+    public List<Person> findAll(int page,int perPage) {
+        return personRepository.findAll((page-1)*perPage,perPage);
     }
 
     @Override
-    public List<Person> findBySearchField(String query) {
-        return personRepository.findBySearchField(query);
+    public int findAll() {
+        List<Person> list = personRepository.findAll();
+        return list.size();
+    }
+
+    @Override
+    public int findBySearchField(String query) {
+        List<Person> list = personRepository.findBySearchField(query);
+        return list.size();
+    }
+
+    @Override
+    public List<Person> findBySearchField(String query,int page,int perPage) {
+        int spage=1;
+        return personRepository.findBySearchField(query,(spage-1)*perPage,perPage);
     }
 
     @Override

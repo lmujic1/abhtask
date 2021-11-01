@@ -16,4 +16,9 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
     public List<Person> findByName(@Param("name") String name);
     public List<Person> findByPhoneNumber(@Param("phoneNumber") String phoneNumber);
     public List<Person> findTop10By();
+    public List<Person> findAll();
+
+
+    @Query(value = "SELECT person.* FROM person LIMIT ?1,?2",nativeQuery = true)
+    public List<Person> findAll(@Param("page") int page, @Param("perPage") int perPage);
 }
